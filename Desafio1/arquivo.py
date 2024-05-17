@@ -7,7 +7,7 @@
 
 saldo = 0
 LIMITE_SAQUE = 3 # constante -> por conveniência em python
-limite_valor = 500
+limite_valor_saque = 500
 saques_realizados = 0
 
 # Programa principal
@@ -23,17 +23,30 @@ while True:
     
     if opcao == 1:
         # opção de depósito
-        valor_depositado = float(input("Digite o valor a ser depositado: "))
+        valor_depositado = float(input("Informe o valor a ser depositado: "))
         if valor_depositado > 0:
             saldo += valor_depositado
             print(f"O valor atual em sua conta é de: R$ {saldo:.2f}")
         else:
-            print("Não é possível depositar valores negativos! Tente novamente")
+            print("Não é possível depositar valores negativos! Tente novamente.")
 
     if opcao == 2:
         # opção de saque
-        print("Em construção...")
-
+        valor_saque = float(input("Informe o valor a ser sacado: "))
+        if saques_realizados == LIMITE_SAQUE:
+            print("Você já excedeu o limite de saques diários! Tente novamente amanhã!")
+        else:
+            if valor_saque > limite_valor_saque:
+                print(f"O valor informado ultrapassa seu valor de saque! Seu limite de valor é de {limite_valor_saque}")
+            elif valor_saque > saldo:
+                print(f"O valor informado ultrapassa seu valor total da conta! Atualmente, seu valor é de {saldo} ")
+            elif valor_saque < 0:
+                print("Não é possível realizar saque de valores negativos! Tente novamente!")
+            else:
+                saldo -= valor_saque
+                print(f"Saque realizado no valor de R$ {valor_saque:.2f}.")
+                saques_realizados += 1
+    
     if opcao == 3:
         # opção de extrato
         print("Em construção...")
