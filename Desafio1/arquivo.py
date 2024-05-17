@@ -9,6 +9,7 @@ saldo = 0
 LIMITE_SAQUE = 3 # constante -> por conveniência em python
 limite_valor_saque = 500
 saques_realizados = 0
+extrato = ""
 
 # Programa principal
 
@@ -27,29 +28,34 @@ while True:
         if valor_depositado > 0:
             saldo += valor_depositado
             print(f"O valor atual em sua conta é de: R$ {saldo:.2f}")
+            extrato += f"Depósito: R$ {valor_depositado:.2f}\n"
         else:
             print("Não é possível depositar valores negativos! Tente novamente.")
 
     if opcao == 2:
         # opção de saque
-        valor_saque = float(input("Informe o valor a ser sacado: "))
         if saques_realizados == LIMITE_SAQUE:
             print("Você já excedeu o limite de saques diários! Tente novamente amanhã!")
         else:
+            valor_saque = float(input("Informe o valor a ser sacado: "))
             if valor_saque > limite_valor_saque:
-                print(f"O valor informado ultrapassa seu valor de saque! Seu limite de valor é de {limite_valor_saque}")
+                print(f"O valor informado ultrapassa seu valor de saque! Seu limite de valor é de R$ {limite_valor_saque}")
             elif valor_saque > saldo:
-                print(f"O valor informado ultrapassa seu valor total da conta! Atualmente, seu valor é de {saldo} ")
+                print(f"O valor informado ultrapassa seu valor total da conta! Atualmente, seu valor é de R$ {saldo} ")
             elif valor_saque < 0:
                 print("Não é possível realizar saque de valores negativos! Tente novamente!")
             else:
                 saldo -= valor_saque
                 print(f"Saque realizado no valor de R$ {valor_saque:.2f}.")
+                extrato += f"Saque: R$ {valor_saque:.2f}\n"
                 saques_realizados += 1
     
     if opcao == 3:
         # opção de extrato
-        print("Em construção...")
+        print("\n================ EXTRATO ================")
+        print("Não foram realizadas movimentações." if not extrato else extrato)
+        print(f"\nSaldo: R$ {saldo:.2f}")
+        print("==========================================")
 
     if opcao == 4:
         # opção de encerrar
